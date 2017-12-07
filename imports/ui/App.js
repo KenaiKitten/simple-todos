@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// To use react-meteor-data, we need to wrap our component in 
-// a container using the withTracker Higher Order Component
 import { withTracker } from 'meteor/react-meteor-data';
 
 import { Tasks } from '../api/tasks.js';
@@ -9,25 +7,33 @@ import Task from './Task.js';
 
 // App component - represents the whole app
 class App extends Component {
- renderTasks() {
-  return this.props.tasks.map((task) => (
-     <Task key={task._id} task={task} />
-   ));
- }
+  renderTasks() {
+    return this.props.tasks.map((task) => (
+      <Task key={task._id} task={task} />
+    ));
+  }
 
- render() {
-   return (
-     <div className="container">
-       <header>
-         <h1>Todo List</h1>
-       </header>
+  render() {
+    return (
+      <div className="container">
+        <header>
+          <h1>Todo List</h1>
+          
+          <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
+            <input
+              type="text"
+              ref="textInput"
+              placeholder="Type to add new tasks"
+            />
+          </form>
+        </header>
 
-       <ul>
-         {this.renderTasks()}
-       </ul>
-     </div>
-   );
- }
+        <ul>
+          {this.renderTasks()}
+        </ul>
+      </div>
+    );
+  }
 }
 
 export default withTracker(() => {
